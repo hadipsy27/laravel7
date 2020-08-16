@@ -1,0 +1,8 @@
+// help di model
+php artisan make:model -h
+
+// membuat model, migration, dan controller Post
+php artisan make:model Post -mc
+
+// membuat model,seeder,migration,factory,controller Post
+php artisan make:model Post -a

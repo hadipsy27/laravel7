@@ -6,3 +6,22 @@ php artisan make:model Post -mc
 
 // membuat model,seeder,migration,factory,controller Post
 php artisan make:model Post -a
+
+--------------------------------------------------------
+// factory / dummy data
+
+// cek UserFactory.php di database/factories
+// buat 5 data dummy
+php artisan tinker
+	factory('App\User',5)->create()
+
+=====================================================
+// cara biasa membuat factory
+php artisan make:factory PostFactory
+
+// membuat factory yang nama model nya di inisialisasi
+php artisan make:factory PostFactory -m Post
+
+// setelah itu pakai tinker untuk generate 10 data dummy
+php artisan tinker
+	factory('App\Post',10)->create()

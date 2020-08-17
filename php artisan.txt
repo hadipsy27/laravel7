@@ -25,3 +25,12 @@ php artisan make:factory PostFactory -m Post
 // setelah itu pakai tinker untuk generate 10 data dummy
 php artisan tinker
 	factory('App\Post',10)->create()
+
+------------------------------------------------------
+php artisan tinker
+
+// menampilkan post berdasarkan urutan nomor pertama
+Post::get();
+
+// menampilkan post berdasarkan post terbaru
+Post::latest()->get();

@@ -13,15 +13,18 @@ class PostController extends Controller
         // $post = Post::simplePaginate(2); //paginate dengan previous dan next
         return view('posts.index',[
             // latest() order by asc
-            'posts' => Post::latest()->paginate(4),
+            'posts' => Post::latest()->paginate(6),
         ]);
 
     }
     public function show(Post $post)
-    {
-        
+    {    
         return view('posts.show',compact('post'));
-
-
     }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
 }

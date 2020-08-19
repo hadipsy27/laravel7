@@ -9,6 +9,9 @@
         <li class="nav-item{{request()->is('/') ? ' active' : ''}}">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item{{request()->is('posts') ? ' active' : ''}}">
+            <a class="nav-link" href="/posts">Posts</a>
+        </li>
         <li class="nav-item{{request()->is('contact') ? ' active' : ''}}">
             <a class="nav-link" href="/contact">Contact</a>
         </li>

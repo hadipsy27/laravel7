@@ -15,7 +15,11 @@
           <div class="card-body">
             <div>{{ Str::limit($post->body, 100, '.') }}</div>
 
-            <a href="">Read more</a>
+            <a href="/posts/{{$post->slug}}">Read more</a>
+          </div>
+          <div class="card-footer">
+            {{-- Published on {{$post->created_at->format('d F, Y')}} --}}
+            Published on {{$post->created_at->diffForHumans()}}
           </div>
         </div>
 

@@ -27,17 +27,19 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $this->validate($request,[
-            'title'     => 'required',
+        // validate the vield
+        $attr = request()->validate([
+            'title'     => 'required|min:3|max:15',
             'body'      => 'required',
         ]);
+        
+        // Assign title to the slug
+        $attr['slug'] = \Str::slug(request('title'));
 
-        // dd($request->all());
-        $post = $request->all();
-        $post['slug'] = \Str::slug($request->title);
-        Post::create($post);
+        // create new post
+        Post::create($attr);
         return back();
     }
 

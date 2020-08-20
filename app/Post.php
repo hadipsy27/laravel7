@@ -8,5 +8,4 @@ class Post extends Model
 {
   // menentukan form mana yang boleh diisi
   protected $fillable = ['title', 'slug', 'body'];
-  
 }

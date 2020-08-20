@@ -13,7 +13,7 @@
   </div>
   
   <div class="row">
-      @foreach ($posts as $post)
+      @forelse ($posts as $post)
         <div class="col-md-4">
           <div class="card  mb-4">
             <div class="card-header">
@@ -28,7 +28,14 @@
             </div>
           </div>
         </div>
-      @endforeach
+        @empty
+            <div class="col-md-12 mt-3">
+              <div class="alert alert-info">
+                There's no posts.
+              </div>
+            </div>
+        {{-- @endempty   --}}
+      @endforelse
     </div>
     <div class="d-flex justify-content-center">
       <div>

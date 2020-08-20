@@ -36,7 +36,8 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->save();
 
-        return redirect()->to('posts');
+        // return redirect()->to('posts');
+        return back();
     }
 
 }

@@ -43,7 +43,8 @@ class PostController extends Controller
 
         session()->flash('success','The post was created');
 
-        return back();
+        // return back();
+        return redirect('posts');
     }
 
 }

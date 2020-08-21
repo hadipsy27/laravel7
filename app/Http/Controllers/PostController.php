@@ -40,6 +40,9 @@ class PostController extends Controller
 
         // create new post
         Post::create($attr);
+
+        session()->flash('success','The post was created');
+
         return back();
     }
 

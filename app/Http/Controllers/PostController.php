@@ -14,7 +14,7 @@ class PostController extends Controller
         ]);
 
     }
-    
+
     public function show(Post $post)
     {    
         return view('posts.show',compact('post'));
@@ -49,7 +49,7 @@ class PostController extends Controller
 
     public function validateRequest()
     {
-        request()->validate([
+        return request()->validate([
             'title'     => 'required|min:3',
             'body'      => 'required',
         ]);

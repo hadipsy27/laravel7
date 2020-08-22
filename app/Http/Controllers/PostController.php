@@ -9,14 +9,12 @@ class PostController extends Controller
 {
     public function index()
     {
-
-        // $post = Post::simplePaginate(2); //paginate dengan previous dan next
         return view('posts.index',[
-            // latest() order by asc
             'posts' => Post::latest()->paginate(6),
         ]);
 
     }
+    
     public function show(Post $post)
     {    
         return view('posts.show',compact('post'));
@@ -29,21 +27,10 @@ class PostController extends Controller
 
     public function store()
     {
-        // validate the vield
-        $attr = request()->validate([
-            'title'     => 'required|min:3|max:15',
-            'body'      => 'required',
-        ]);
-        
-        // Assign title to the slug
+        $attr = $this->validateRequest();
         $attr['slug'] = \Str::slug(request('title'));
-
-        // create new post
         Post::create($attr);
-
         session()->flash('success','The post was created');
-
-        // return back();
         return redirect('posts');
     }
 
@@ -54,17 +41,18 @@ class PostController extends Controller
 
     public function update(Post $post)
     {
-        // dd('updated');
-
-        // validate the vield
-        $attr = request()->validate([
-            'title'     => 'required|min:3|max:15',
-            'body'      => 'required',
-        ]);
-
+        $attr = $this->validateRequest();
         $post->update($attr);
         session()->flash('success', 'The post was updated');
         return redirect('posts');
+    }
+
+    public function validateRequest()
+    {
+        request()->validate([
+            'title'     => 'required|min:3',
+            'body'      => 'required',
+        ]);
     }
 
 }

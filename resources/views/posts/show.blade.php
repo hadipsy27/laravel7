@@ -3,8 +3,11 @@
 @section('title', $post->title)
 @section('content')
     <div class="container">
-        <!-- <p> {{ $post->slug }} </p> -->
         <h1> {{ $post->title }} </h1>
+        <div class="text-secondary">
+            {{ $post->category->name }} &middot; {{ $post->created_at->format('d F, Y') }}
+        </div>
+        <hr>
         <p> {{ $post->body }} </p>
         <div>
         <!-- Button trigger modal -->

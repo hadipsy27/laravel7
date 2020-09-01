@@ -15,12 +15,9 @@ class CreatePostTagTable extends Migration
     {
         Schema::create('post_tag', function (Blueprint $table) {
             // membuat relasi antara post dengan tag
-            $table->foreignId('post_id');
-            $table->foreignId('tag_id');
+            $table->foreignId('post_id')->constrained('posts');
+            $table->foreignId('tag_id')->constrained('tags');
             $table->primary(['post_id','tag_id']);
-
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 

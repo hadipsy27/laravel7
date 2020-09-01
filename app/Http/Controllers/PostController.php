@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\{Category,Post,Tag};
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
@@ -21,14 +21,21 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create',['post' => new Post()]);
+        return view('posts.create',[
+            'post' => new Post(),
+            'categories' => Category::get(),
+            'tags'       => Tag::get(),
+            ]);
     }
 
     public function store(PostRequest $request)
     {
         $attr = $request->all();
         $attr['slug'] = \Str::slug(request('title'));
-        Post::create($attr);
+        $attr['category_id'] = request('category');
+        $post = Post::create($attr);
+        $post->tags()->attach(request('tags'));
+        
         session()->flash('success','The post was created');
         return redirect('posts');
     }

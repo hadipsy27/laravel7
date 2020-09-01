@@ -10,7 +10,7 @@
             &middot;
             {{-- // $post->tags = tags di ambil dari model Post --}}
             @foreach ($post->tags as $tag)
-                <a href="#">{{ $tag->name }}</a>
+                <a href="/tags/{{ $tag->slug}}">{{ $tag->name }}</a>
             @endforeach
         </div>
         <hr>

@@ -13,7 +13,7 @@
   <select type="text" name="category" id="category" class="form-control">
     <option disabled selected>Choose one!</option>
     @foreach ($categories as $category)
-      <option value="{{ $category->id }}">{{ $category->name }}</option>
+      <option {{ $category->id == $post->category_id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
     @endforeach
   </select>
   @error('category')
@@ -25,12 +25,18 @@
 
 <div class="form-group">
   <label for="tags">Tag</label>
-  <select type="text" name="tags[]" id="tags" class="form-control" multiple>
+  <select type="text" name="tags[]" id="tags" class="form-control select2" multiple>
+    
+    @foreach ($post->tags as $tag)
+      <option selected value="{{ $tag->id }}">{{ $tag->name }}</option>
+    @endforeach
+
     @foreach ($tags as $tag)
       <option value="{{ $tag->id }}">{{ $tag->name }}</option>
     @endforeach
+
   </select>
-  @error('tag')
+  @error('tags')
       <div class="mt-2 text-danger">
         {{ $message }}
       </div>

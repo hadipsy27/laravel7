@@ -42,20 +42,26 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('posts.edit',compact('post'));
+        return view('posts.edit',[
+            'post'      => $post,
+            'categories'=> Category::get(),
+            'tags'      => Tag::get()
+        ]);
     }
 
     public function update(PostRequest $request, Post $post)
     {
         $attr = $request->all();
+        $attr['category_id'] = request('category');
         $post->update($attr);
+        $post->tags()->sync(request('tags'));
         session()->flash('success', 'The post was updated');
         return redirect('posts');
     }
 
     public function destroy(Post $post)
     {
-        // dd($post);
+        $post->tags()->detach();
         $post->delete();
         session()->flash('success', 'The post was destroyed');
         return redirect('posts');

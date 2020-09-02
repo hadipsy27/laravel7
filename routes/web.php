@@ -22,3 +22,7 @@ Route::get('posts/{post:slug}', 'PostController@show');
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
 Route::view('/login', 'login');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

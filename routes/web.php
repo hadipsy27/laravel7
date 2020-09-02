@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController');
-
 Route::get('posts', 'PostController@index');
 
 Route::get('posts/create', 'PostController@create');
@@ -25,4 +23,4 @@ Route::view('/login', 'login');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

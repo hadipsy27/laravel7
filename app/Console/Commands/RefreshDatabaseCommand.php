@@ -11,6 +11,8 @@ class RefreshDatabaseCommand extends Command
      *
      * @var string
      */
+    // cara menjalankan
+    // php artisan refresh:database
     protected $signature = 'refresh:database';
 
     /**
@@ -37,6 +39,25 @@ class RefreshDatabaseCommand extends Command
      */
     public function handle()
     {
-        $this->info('This command has been ran');
+        // php artisan migrate:refresh
+        $this->call('migrate:refresh');
+
+        $categories = collect(['Framework', 'Code']);
+        $categories->each(function($c){
+            \App\Category::create([
+                'name'  => $c,
+                'slug'  =>\Str::slug($c)
+            ]);
+        });
+
+        $tags = collect(['Laravel', 'Fundation','Bug','Slim','Help']);
+        $tags->each(function($c){
+            \App\Tag::create([
+                'name'  => $c,
+                'slug'  =>\Str::slug($c)
+            ]);
+        });
+
+        $this->info('All database has been refreshed and seeded.');
     }
 }

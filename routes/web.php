@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('posts', 'PostController@index')->name('posts.index');
-Route::middleware('auth')->group(function (){
-  Route::get('posts/create', 'PostController@create')->name('posts.create');
-  Route::post('posts/store', 'PostController@store');
-  Route::get('posts/{post:slug}/edit', 'PostController@edit');
-  Route::patch('posts/{post:slug}/edit', 'PostController@update');
-  Route::delete('posts/{post:slug}/delete', 'PostController@destroy');  
+Route::prefix('posts')->middleware('auth')->group(function (){
+  Route::get('create', 'PostController@create')->name('posts.create');
+  Route::post('store', 'PostController@store');
+  Route::get('{post:slug}/edit', 'PostController@edit');
+  Route::patch('{post:slug}/edit', 'PostController@update');
+  Route::delete('{post:slug}/delete', 'PostController@destroy');  
 });
 Route::get('posts/{post:slug}', 'PostController@show');
 

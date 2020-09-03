@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('posts', 'PostController@index')->name('posts.index');
 
-Route::get('posts/create', 'PostController@create');
+Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::post('posts/store', 'PostController@store');
 
 Route::get('posts/{post:slug}/edit', 'PostController@edit');

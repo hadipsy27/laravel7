@@ -41,23 +41,8 @@ class RefreshDatabaseCommand extends Command
     {
         // php artisan migrate:refresh
         $this->call('migrate:refresh');
-
-        $categories = collect(['Framework', 'Code']);
-        $categories->each(function($c){
-            \App\Category::create([
-                'name'  => $c,
-                'slug'  =>\Str::slug($c)
-            ]);
-        });
-
-        $tags = collect(['Laravel', 'Fundation','Bug','Slim','Help']);
-        $tags->each(function($c){
-            \App\Tag::create([
-                'name'  => $c,
-                'slug'  =>\Str::slug($c)
-            ]);
-        });
-
+        // memanggil php artisan db:seed
+        $this->call('db:seed');
         $this->info('All database has been refreshed and seeded.');
     }
 }

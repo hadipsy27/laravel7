@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-  protected $fillable = ['title', 'slug', 'body', 'category_id'];
+  protected $fillable = ['title', 'slug', 'body', 'category_id','user_id'];
 
   // singular
   public function category()
@@ -20,5 +20,10 @@ class Post extends Model
     // relasikan ke post_tag
     // function ini di tampilkan ke show.blade.php
     return $this->belongsToMany(Tag::class);
+  }
+
+  public function author()
+  {
+    return $this->belongsTo(User::class, 'user_id');
   }
 }

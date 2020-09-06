@@ -2,20 +2,24 @@
 
 @section('title', $post->title)
 @section('content')
-    <div class="container">
-        <h1> {{ $post->title }} </h1>
-        <div class="text-secondary">
-            <a href="/categories/{{$post->category->slug}}">{{ $post->category->name }}</a> 
-            &middot; {{ $post->created_at->format('d F, Y') }}
-            &middot;
-            {{-- // $post->tags = tags di ambil dari model Post --}}
-            @foreach ($post->tags as $tag)
-                <a href="/tags/{{ $tag->slug}}">{{ $tag->name }}</a>
-            @endforeach
-        </div>
-        <hr>
-        <p> {{ $post->body }} </p>
-        <div>
+<div class="container">
+    <h1> {{ $post->title }} </h1>
+    <div class="text-secondary">
+        <a href="/categories/{{$post->category->slug}}">{{ $post->category->name }}</a> 
+        &middot; {{ $post->created_at->format('d F, Y') }}
+        &middot;
+        {{-- // $post->tags = tags di ambil dari model Post --}}
+        @foreach ($post->tags as $tag)
+            <a href="/tags/{{ $tag->slug}}">{{ $tag->name }}</a>
+        @endforeach
+    </div>
+    <hr>
+    <p> {{ $post->body }} </p>
+    <div>
+    <div class="text-secondary">
+        Wrote by {{ $post->author->name }}
+    </div>
+    @auth
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
             Destroy
@@ -50,6 +54,7 @@
             </div>
             </div>
         </div>
-        </div>
+    @endauth
     </div>
+</div>
 @endsection

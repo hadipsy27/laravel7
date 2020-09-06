@@ -69,10 +69,17 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->tags()->detach();
-        $post->delete();
-        session()->flash('success', 'The post was destroyed');
-        return redirect('posts');
+        if(auth()->user()->is($post->author)){
+            // dd('ya ini author');
+            $post->tags()->detach();
+            $post->delete();
+            session()->flash('success', 'The post was destroyed');
+            return redirect('posts');
+        }else {
+            // dd('bukan');
+            session()->flash('error', "It wasn't your post");
+            return redirect('posts');
+        }
     }
 
 }

@@ -19,9 +19,7 @@
     <div class="text-secondary">
         Wrote by {{ $post->author->name }}
     </div>
-    {{-- @if(auth()->user()->id == $post->user_id) --}}
-    <!-- di sederhanakan menjadi -->
-    {{-- @if(auth()->user()->is($post->author)) --}}
+    @can('Update', $post)
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
             Destroy
@@ -56,7 +54,7 @@
             </div>
             </div>
         </div>
-    {{-- @endif --}}
+    @endcan
     </div>
 </div>
 @endsection

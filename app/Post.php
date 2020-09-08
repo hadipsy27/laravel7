@@ -15,6 +15,11 @@ class Post extends Model
     return $this->belongsTo(Category::class);
   }
 
+  public function takeImage()
+  {
+    return "storage/". $this->thumbnail;
+  }
+
   public function tags()
   {
     // relasikan ke post_tag

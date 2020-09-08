@@ -59,6 +59,7 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('update',$post);
         $attr = $request->all();
         $attr['category_id'] = request('category');
         $post->update($attr);
@@ -69,17 +70,9 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if(auth()->user()->is($post->author)){
-            // dd('ya ini author');
-            $post->tags()->detach();
-            $post->delete();
-            session()->flash('success', 'The post was destroyed');
-            return redirect('posts');
-        }else {
-            // dd('bukan');
-            session()->flash('error', "It wasn't your post");
-            return redirect('posts');
-        }
+        $this->authorize('deleted',$post);
+        session()->flash('error', 'The post was destroyed');
+        return redirect('posts');
     }
 
 }

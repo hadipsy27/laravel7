@@ -19,7 +19,7 @@
     <div class="text-secondary">
         Wrote by {{ $post->author->name }}
     </div>
-    @can('Update', $post)
+    @can('delete', $post)
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-link text-danger btn-sm p-0" data-toggle="modal" data-target="#exampleModal">
             Destroy

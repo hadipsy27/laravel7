@@ -36,7 +36,7 @@
             <div class="card-header">
               {{ $post->title }}
             </div>
-            <img src="{{ asset($post->takeImage()) }}" class="card-image-top">
+            <img src="{{ $post->takeImage }}" class="card-image-top">
             <div class="card-body">
               <div>{{ Str::limit($post->body, 100, '.') }}</div>
               <a href="/posts/{{$post->slug}}">Read more</a>

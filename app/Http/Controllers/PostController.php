@@ -42,7 +42,7 @@ class PostController extends Controller
         $attr['slug'] = $slug;
 
         $thumbnail = request()->file('thumbnail');
-        $thumbnailUlr = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
+        $thumbnailUlr = $thumbnail->store("images/posts");
         
         $attr['category_id'] = request('category');
         $attr['thumbnail'] = $thumbnailUlr;

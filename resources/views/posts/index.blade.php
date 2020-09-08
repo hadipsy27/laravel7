@@ -36,7 +36,12 @@
             <div class="card-header">
               {{ $post->title }}
             </div>
-            <img src="{{ $post->takeImage }}" class="card-image-top">
+            
+            @if ($post->thumbnail)
+            <img style="height: 270px; object-fit: cover; object-position: center;" 
+            src="{{ $post->takeImage }}" class="card-image-top">    
+            @endif
+            
             <div class="card-body">
               <div>{{ Str::limit($post->body, 100, '.') }}</div>
               <a href="/posts/{{$post->slug}}">Read more</a>

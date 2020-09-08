@@ -52,4 +52,9 @@
       </div>
   @enderror
 </div>
+
+<div class="form-group">
+  <input type="file" name="thumbnail" id="thumbnail">
+</div>
+
 <button type="submit" class="btn btn-primary">{{ $submit ?? 'Update'}}</button>

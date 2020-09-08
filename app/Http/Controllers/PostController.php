@@ -38,10 +38,18 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $attr = $request->all();
-        $attr['slug'] = \Str::slug(request('title'));
-        $attr['category_id'] = request('category');
+        $slug = \Str::slug(request('title'));
+        $attr['slug'] = $slug;
+
+        $thumbnail = request()->file('thumbnail');
+        $thumbnailUlr = $thumbnail->storeAs("images/posts", "{$slug}.{$thumbnail->extension()}");
         
+        $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnailUlr;
+        
+        // create new post
         $post = auth()->user()->posts()->create($attr);
+
         $post->tags()->attach(request('tags'));
         
         session()->flash('success','The post was created');

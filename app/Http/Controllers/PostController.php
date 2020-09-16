@@ -47,12 +47,6 @@ class PostController extends Controller
 
         // one line if else
         $thumbnail = request()->file('thumbnail') ? request()->file('thumbnail')->store("images/posts") : null;
-
-        // if (request()->file('thumbnail')) {
-        //     $thumbnail = request()->file('thumbnail')->store("images/posts");    
-        // } else {
-        //     $thumbnail = null;
-        // }
         
         $attr['category_id'] = request('category');
         $attr['thumbnail'] = $thumbnail;
@@ -80,7 +74,7 @@ class PostController extends Controller
         $request->validate([
             'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
-        
+
         $this->authorize('update',$post);
         if (request()->file('thumbnail')) {
             \Storage::delete($post->thumbnail);
@@ -101,9 +95,11 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        // supaya image ikut ke delete
-        \Storage::delete($post->thumbnail);
         $this->authorize('deleted',$post);
+
+        \Storage::delete($post->thumbnail);
+        $post->tags()->detach();
+        $post->delete();
         session()->flash('error', 'The post was destroyed');
         return redirect('posts');
     }

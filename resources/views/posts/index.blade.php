@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <div class="d-flex justify-content-between">
+  <div class="">
     <div>
       @isset($category)
       <h4>Category: {{ $category->name }}</h4>  
@@ -19,50 +19,51 @@
       @endif
       <hr>
     </div>
-    <div>
+    {{-- <div>
       @if (Auth::check())
         <a href="{{route('posts.create')}}" class="btn btn-primary">New Post</a>
       @else
       <a href="{{route('login')}}" class="btn btn-primary">Login to create new Post</a>
       @endif
 
-    </div>
+    </div> --}}
   </div>
-  
   <div class="row">
+    <div class="col-md-6">
       @forelse ($posts as $post)
-        <div class="col-md-4">
-          <div class="card  mb-4">
-            <div class="card-header">
+        <div class="card  mb-4">        
+          @if ($post->thumbnail)
+          <a href="{{ route('posts.show', $post->slug )}}">
+            <img style="height: 303px; object-fit: cover; object-position: center;" 
+            src="{{ $post->takeImage }}" class="card-image-top">
+          </a>
+          @endif
+
+          <div class="card-body">
+            <a  href="{{ route('posts.show', $post->slug) }}" class="card-title">
               {{ $post->title }}
-            </div>
+            </a>
+            <div>{{ Str::limit($post->body, 100, '.') }}</div>
             
-            @if ($post->thumbnail)
-            <img style="height: 270px; object-fit: cover; object-position: center;" 
-            src="{{ $post->takeImage }}" class="card-image-top">    
-            @endif
+          </div>
+
+          <div class="">
+            Published on {{$post->created_at->diffForHumans()}}
             
-            <div class="card-body">
-              <div>{{ Str::limit($post->body, 100, '.') }}</div>
-              <a href="/posts/{{$post->slug}}">Read more</a>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              Published on {{$post->created_at->diffForHumans()}}
-              @can('update', $post)
-                <a href="posts/{{ $post->slug }}/edit" class="btn btn-sm btn-success">Edit</a>
-              @endcan
-            </div>
           </div>
         </div>
+      
         @empty
-            <div class="col-md-12 mt-3">
-              <div class="alert alert-info">
-                There's no posts.
-              </div>
+          <div class="col-md-12 mt-3">
+            <div class="alert alert-info">
+              There's no posts.
             </div>
-        {{-- @endempty   --}}
+          </div>
       @endforelse
     </div>
+  </div>
+      
+    
     <div class="d-flex justify-content-center">
       <div>
         {{ $posts->links() }}

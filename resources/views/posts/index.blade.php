@@ -43,12 +43,24 @@
             <a  href="{{ route('posts.show', $post->slug) }}" class="card-title">
               {{ $post->title }}
             </a>
-            <div>{{ Str::limit($post->body, 100, '.') }}</div>
-            
-          </div>
-
-          <div class="">
-            Published on {{$post->created_at->diffForHumans()}}
+            <div>
+              {{ Str::limit($post->body, 100, '.') }}
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <div class="media align-items-center">
+                <img width='40' class="rounded-circle mr-3" src="{{ $post->author->gravatar() }}" alt="">
+                <div class="media-body">
+                    <div>
+                      {{ $post->author->name }}
+                    </div>
+                </div>
+              </div>
+              <div class="text-secondary">
+                <small>
+                  Published on {{$post->created_at->diffForHumans()}}
+                </small>
+              </div>
+            </div>
             
           </div>
         </div>

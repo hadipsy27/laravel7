@@ -13,8 +13,14 @@
             <a href="/tags/{{ $tag->slug}}">{{ $tag->name }}</a>
         @endforeach
 
-        <div class="text-secondary">
-            Wrote by {{ $post->author->name }}
+        <div class="media my-3">
+            <img width='60' class="rounded-circle mr-3" src="{{ $post->author->gravatar() }}" alt="">
+            <div class="media-body">
+                <div>
+                    {{ $post->author->name }}
+                </div>
+                {{'@'. $post->author->username }}
+            </div>
         </div>
     </div>
     

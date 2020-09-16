@@ -68,8 +68,13 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $this->authorize('update',$post);
+        
+        $thumbnail = request()->file('thumbnail');
+        $thumbnailUlr = $thumbnail->store("images/posts");
+
         $attr = $request->all();
         $attr['category_id'] = request('category');
+        $attr['thumbnail'] = $thumbnailUlr;
         $post->update($attr);
         $post->tags()->sync(request('tags'));
         session()->flash('success', 'The post was updated');

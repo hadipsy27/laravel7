@@ -29,22 +29,35 @@
     </div> --}}
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
       @forelse ($posts as $post)
         <div class="card  mb-4">        
           @if ($post->thumbnail)
           <a href="{{ route('posts.show', $post->slug )}}">
-            <img style="height: 303px; object-fit: cover; object-position: center;" 
+            <img style="height: 356px; object-fit: cover; object-position: center;" 
             src="{{ $post->takeImage }}" class="card-image-top">
           </a>
           @endif
 
           <div class="card-body">
-            <a  href="{{ route('posts.show', $post->slug) }}" class="card-title">
-              {{ $post->title }}
-            </a>
             <div>
-              {{ Str::limit($post->body, 100, '.') }}
+              <a href="{{ route('categories.show', $post->slug) }}" class="text-secondary">
+                <small>{{ $post->category->name }} - </small>
+              </a>
+
+              @foreach ($post->tags as $tag)
+                <a href="{{ route('tags.show', $tag->slug) }}" class="text-secondary">
+                  <small>{{ $tag->name }}</small>
+                </a>
+              @endforeach
+            </div>
+            <h5>
+              <a href="{{ route('posts.show', $post->slug) }}" class="card-title text-dark">
+                {{ $post->title }}
+              </a>
+            </h5>
+            <div class="text-secondary my-3">
+              {{ Str::limit($post->body, 130, '.') }}
             </div>
             <div class="d-flex justify-content-between align-items-center mt-2">
               <div class="media align-items-center">
@@ -75,11 +88,6 @@
     </div>
   </div>
       
-    
-    <div class="d-flex justify-content-center">
-      <div>
-        {{ $posts->links() }}
-      </div>
-    </div>
+{{ $posts->links() }}
 </div>
 @endsection

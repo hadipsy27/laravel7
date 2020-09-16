@@ -68,9 +68,13 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $this->authorize('update',$post);
-        
-        $thumbnail = request()->file('thumbnail');
-        $thumbnailUlr = $thumbnail->store("images/posts");
+        if (request()->file('thumbnail')) {
+            \Storage::delete($post->thumbnail);
+            $thumbnail = request()->file('thumbnail');
+            $thumbnailUlr = $thumbnail->store("images/posts");
+        } else {
+            $thumbnailUlr = $post->thumbnail;
+        }
 
         $attr = $request->all();
         $attr['category_id'] = request('category');

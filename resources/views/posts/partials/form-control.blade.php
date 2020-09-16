@@ -55,6 +55,11 @@
 
 <div class="form-group">
   <input type="file" name="thumbnail" id="thumbnail">
+  @error('thumbnail')
+      <div class="mt-2 text-danger">
+        {{ $message }}
+      </div>
+  @enderror
 </div>
 
 <button type="submit" class="btn btn-primary">{{ $submit ?? 'Update'}}</button>

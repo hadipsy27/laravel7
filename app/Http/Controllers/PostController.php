@@ -40,16 +40,19 @@ class PostController extends Controller
         $request->validate([
             'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
-        
+
         $attr = $request->all();
         $slug = \Str::slug(request('title'));
         $attr['slug'] = $slug;
 
-        if (request()->file('thumbnail')) {
-            $thumbnail = request()->file('thumbnail')->store("images/posts");    
-        } else {
-            $thumbnail = null;
-        }
+        // one line if else
+        $thumbnail = request()->file('thumbnail') ? request()->file('thumbnail')->store("images/posts") : null;
+
+        // if (request()->file('thumbnail')) {
+        //     $thumbnail = request()->file('thumbnail')->store("images/posts");    
+        // } else {
+        //     $thumbnail = null;
+        // }
         
         $attr['category_id'] = request('category');
         $attr['thumbnail'] = $thumbnail;
@@ -74,6 +77,10 @@ class PostController extends Controller
 
     public function update(PostRequest $request, Post $post)
     {
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+        
         $this->authorize('update',$post);
         if (request()->file('thumbnail')) {
             \Storage::delete($post->thumbnail);

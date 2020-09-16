@@ -37,15 +37,22 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
+        $request->validate([
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,svg|max:2048'
+        ]);
+        
         $attr = $request->all();
         $slug = \Str::slug(request('title'));
         $attr['slug'] = $slug;
 
-        $thumbnail = request()->file('thumbnail');
-        $thumbnailUlr = $thumbnail->store("images/posts");
+        if (request()->file('thumbnail')) {
+            $thumbnail = request()->file('thumbnail')->store("images/posts");    
+        } else {
+            $thumbnail = null;
+        }
         
         $attr['category_id'] = request('category');
-        $attr['thumbnail'] = $thumbnailUlr;
+        $attr['thumbnail'] = $thumbnail;
         
         // create new post
         $post = auth()->user()->posts()->create($attr);
@@ -87,6 +94,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        // supaya image ikut ke delete
+        \Storage::delete($post->thumbnail);
         $this->authorize('deleted',$post);
         session()->flash('error', 'The post was destroyed');
         return redirect('posts');

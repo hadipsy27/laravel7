@@ -2,8 +2,12 @@
 
 @section('content')
 <div class="container">
-  <div class="">
-    <div>
+  <div class="d-flex mb-3">
+    @if (!isset($tag) && !isset($category))
+        <h4>All Post</h4>
+        <hr>
+      @endif
+    <div class="media ml-auto">
       @isset($category)
       <h4>Category: {{ $category->name }}</h4>  
       
@@ -14,20 +18,13 @@
 
       @endisset
 
-      @if (!isset($tag) && !isset($category))
-        <h4>All Post</h4>
-      @endif
-      <hr>
-    </div>
-    {{-- <div>
-      @if (Auth::check())
+      @if (Auth::check() && (!isset($tag) && !isset($category)))
         <a href="{{route('posts.create')}}" class="btn btn-primary">New Post</a>
-      @else
-      <a href="{{route('login')}}" class="btn btn-primary">Login to create new Post</a>
       @endif
 
-    </div> --}}
+    </div>
   </div>
+  <hr>
   <div class="row">
     <div class="col-md-7">
       @forelse ($posts as $post)

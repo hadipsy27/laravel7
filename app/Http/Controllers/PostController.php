@@ -24,7 +24,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {    
-        return view('posts.show',compact('post'));
+        // dd($post->category_id);
+        // fetch data yg category nya sama dengan post category yg sekarang
+        $posts = Post::where('category_id', $post->category_id)->latest()->limit(6)->get();
+        return view('posts.show',compact('post', 'posts'));
     }
 
     public function create()

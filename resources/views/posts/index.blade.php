@@ -7,7 +7,7 @@
         <h4>All Post</h4>
         <hr>
       @endif
-    <div class="media ml-auto">
+    <div>
       @isset($category)
       <h4>Category: {{ $category->name }}</h4>  
       
@@ -17,11 +17,12 @@
       <h4>Tag: {{ $tag->name }}</h4>
 
       @endisset
-
+    <div class="media ml-auto">
       @if (Auth::check() && (!isset($tag) && !isset($category)))
         <a href="{{route('posts.create')}}" class="btn btn-primary">New Post</a>
       @endif
 
+    </div>
     </div>
   </div>
   <hr>
@@ -38,7 +39,7 @@
 
           <div class="card-body">
             <div>
-              <a href="{{ route('categories.show', $post->slug) }}" class="text-secondary">
+              <a href="{{ route('categories.show', $post->category->slug) }}" class="text-secondary">
                 <small>{{ $post->category->name }} - </small>
               </a>
 

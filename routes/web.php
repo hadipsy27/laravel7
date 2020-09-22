@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('search', 'SearchController@post')->name('search.posts');
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::prefix('posts')->middleware('auth')->group(function (){
   Route::get('create', 'PostController@create')->name('posts.create');

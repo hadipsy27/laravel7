@@ -10,19 +10,17 @@
     <div>
       @isset($category)
       <h4>Category: {{ $category->name }}</h4>  
-      
       @endisset
 
       @isset($tag)
       <h4>Tag: {{ $tag->name }}</h4>
-
       @endisset
-    <div class="media ml-auto">
-      @if (Auth::check() && (!isset($tag) && !isset($category)))
-        <a href="{{route('posts.create')}}" class="btn btn-primary">New Post</a>
-      @endif
 
-    </div>
+      <div class="media ml-auto">
+        @if (Auth::check() && (!isset($tag) && !isset($category)))
+          <a href="{{route('posts.create')}}" class="btn btn-primary">New Post</a>
+        @endif
+      </div>
     </div>
   </div>
   <hr>
@@ -83,6 +81,18 @@
             </div>
           </div>
       @endforelse
+    </div>
+    <div class="col-md-5">
+      <form action="{{ route('search.posts') }}" method="get">
+        <div class="row">
+          <div class="col-sm-9 ml-3">
+            <input type="search" placeholder="Search" name="query" class="form-control">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
       
